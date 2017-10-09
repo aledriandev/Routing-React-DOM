@@ -242,6 +242,14 @@ class Courses extends Component {
   }
 }
 
+class NotFound extends Component {
+  render () {
+    return (
+      <Home/>
+    );
+  }
+}
+
 class App extends Component {
   render() {
     return (
@@ -261,13 +269,13 @@ class App extends Component {
                 </ul>
               </div>
           </header>
-                <Switch>
-                  <Route exact path="/" component={Home}/>
-                  <Route path="/about" component={About}/> 
-                  <Route path="/teachers" component={Teachers}/> 
-                  <Route path="/courses" component={Courses}/>
-                  <Route component={Home}/>    
-                </Switch>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/about" component={About}/> 
+            <Route path="/teachers" component={Teachers}/> 
+            <Route path="/courses" component={Courses}/>
+            <Route component={NotFound}/>    
+          </Switch>
         </div>
       </BrowserRouter>
     );
