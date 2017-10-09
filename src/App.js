@@ -96,6 +96,23 @@ class Teachers extends Component {
   }
 }
 
+const GetList = ({items}) => {
+  const itemsList = items.map((item, index) => {
+    return (
+      <li className='course media group' key={index}>
+        <img className='course-img' src={item.img} alt="" />
+        <div>
+          <h3>{item.course}</h3>
+          <p>{item.text}</p>
+        </div>
+      </li>
+    );
+  });
+  return (
+    <ul>{itemsList}</ul>
+  );
+}
+
 class Courses extends Component {
   constructor(props) {
     super(props);
@@ -163,7 +180,7 @@ class Courses extends Component {
         course: "Bootrap 4 Basics",
         text: "Learn to use Bootstrap 4, one of the most popular open source front end frameworks, to help you build a functional design and layout in little time."
       },
-    ]
+    ];
 
     this.js = [
       {
@@ -199,54 +216,27 @@ class Courses extends Component {
     ]
   }
   render() {
-    const getList = (items) => {
-      return items.map((item, index) => {
-        return (
-          <li className='course media group' key={index}>
-            <img className='course-img' src={item.img} alt="" />
-            <div>
-              <h3>{item.course}</h3>
-              <p>{item.text}</p>
-            </div>
-          </li>
-        );
-      });
-    }
-    const { route } = this.props;
-    let CurrentList = null;
-    let classCss, classJs, classHtml
-    switch (route) {
-      case 'css':
-        CurrentList = getList(this.css);
-        classCss = 'active';
-        break;
-      case 'javascript':
-        CurrentList = getList(this.js);
-        classJs = 'active';
-        break;
-      default: //'html'
-        CurrentList = getList(this.html);
-        classHtml = 'active';
-        break;
-    }
     return (
       <div className="main-content courses">
         <div className="group">
           <h2>Courses</h2>
           <ul className="course-nav">
-            <li><a href='#/courses/html' className={classHtml}>HTML</a></li>
-            <li><a href='#/courses/css' className={classCss}>CSS</a></li>
-            <li><a href='#/courses/javascript' className={classJs}>JavaScript</a></li>
+            <li><NavLink to='/courses/html' >HTML</NavLink></li>
+            <li><NavLink to='/courses/css' >CSS</NavLink></li>
+            <li><NavLink to='/courses/javascript' >JavaScript</NavLink></li>
           </ul>
 
         </div>
         <div>
-          <ul>
-            {CurrentList}
-          </ul>
-        </div>
+        <Switch> 
+          <Route exact path= "/courses" 
+                render={()=><Redirect to="/courses/html" /> } />
 
-        {/* Write routes here... */}
+          <Route path = "/courses/html" render ={()=><GetList items={this.html}/>}/>;
+          <Route path = "/courses/css" render ={()=><GetList items={this.css}/>}/>;
+          <Route path = "/courses/javascript" render ={()=><GetList items={this.js}/>}/>;
+        </Switch>
+        </div>
       </div>
     );
   }
@@ -264,7 +254,7 @@ class App extends Component {
             </span>
               <div>
                 <ul className='main-nav'>
-                  <li><NavLink to="/">Home</NavLink></li>
+                  <li><NavLink exact to="/">Home</NavLink></li>
                   <li><NavLink to="/about">About</NavLink></li>
                   <li><NavLink to="/teachers">Teachers</NavLink></li>
                   <li><NavLink to="/courses">Courses</NavLink></li>
