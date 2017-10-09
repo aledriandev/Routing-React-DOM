@@ -265,7 +265,8 @@ class App extends Component {
                   <Route exact path="/" component={Home}/>
                   <Route path="/about" component={About}/> 
                   <Route path="/teachers" component={Teachers}/> 
-                  <Route path="/courses" component={Courses}/>    
+                  <Route path="/courses" component={Courses}/>
+                  <Route component={Home}/>    
                 </Switch>
         </div>
       </BrowserRouter>
